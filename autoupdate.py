@@ -69,7 +69,7 @@ def eliminar_archivos_basura():
             if Path(junk_file).is_file():
                 remove(junk_file)
             elif Path(junk_file).is_dir():
-                rmdir(junk_file)
+                rmtree(junk_file)
         resp = True
     except:
         print('Ha ocurrido un error al intentar eliminar los archivos basura')
@@ -82,14 +82,11 @@ def eliminar_todo():
         print('Eliminando archivos')
         file_list = listdir(getcwd())
         for file in file_list:
-            print(file)
             if file != '.git' :
                 if Path(file).is_file():
-                    print('es archivo')
                     try: remove(file)
                     except: pass
                 elif Path(file).is_dir():
-                    print('es carpeta')
                     try: rmtree(file)
                     except: pass
         resp = True

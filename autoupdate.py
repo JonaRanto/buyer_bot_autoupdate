@@ -1,7 +1,7 @@
 import requests
 import wget
 from os import getcwd, remove, listdir, rmdir
-from shutil import move
+from shutil import move, rmtree
 from zipfile import ZipFile
 from pathlib import Path
 from configparser import ConfigParser
@@ -54,13 +54,13 @@ def descomprimir_zip():
         # Mover todos los archivos de la carpeta que se descomprimió a la carpeta raíz
         file_list = listdir(dir_uncompressed_path)
         for file in file_list:
-            move(dir_uncompressed_path + r'/' + file, getcwd() + r'/' + file)
+            try: move(dir_uncompressed_path + r'/' + file, getcwd() + r'/' + file)
+            except: pass
         resp = True
     except:
         print('Ha ocurrido un error al descomprimir')
         resp = False
     return resp
-
 
 def eliminar_archivos_basura():
     print('Eliminando archivos basura')
@@ -82,16 +82,21 @@ def eliminar_todo():
         print('Eliminando archivos')
         file_list = listdir(getcwd())
         for file in file_list:
-            if not Path('.git').is_dir():
+            print(file)
+            if file != '.git' :
                 if Path(file).is_file():
-                    remove(file)
+                    print('es archivo')
+                    try: remove(file)
+                    except: pass
                 elif Path(file).is_dir():
-                    rmdir(file)
+                    print('es carpeta')
+                    try: rmtree(file)
+                    except: pass
         resp = True
     except:
         resp = False
     return resp
-
+            
 
 if not verificar_version():
     if eliminar_todo():

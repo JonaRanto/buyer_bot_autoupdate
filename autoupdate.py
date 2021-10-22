@@ -1,7 +1,7 @@
 import requests
 import wget
 from os import getcwd, remove, listdir, rmdir
-from shutil import rmtree, move
+from shutil import move
 from zipfile import ZipFile
 from pathlib import Path
 from configparser import ConfigParser
@@ -80,7 +80,7 @@ def eliminar_archivos_basura():
 def eliminar_todo():
     try:
         print('Eliminando archivos')
-        file_list = listdir(dir_uncompressed_path)
+        file_list = listdir(getcwd())
         for file in file_list:
             if not Path('.git').is_dir():
                 if Path(file).is_file():

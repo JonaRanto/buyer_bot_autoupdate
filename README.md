@@ -1,2 +1,2 @@
-# buyer_bot_autoupdate
-version=1.6
+# AplicacionAutoactualizable
+version=1.1

@@ -80,13 +80,7 @@ def eliminar_archivos_basura():
 def eliminar_todo():
     try:
         print('Eliminando archivos')
-        file_list = listdir(dir_uncompressed_path)
-        for file in file_list:
-            if not Path('.git').is_dir():
-                if Path(file).is_file():
-                    remove(file)
-                elif Path(file).is_dir():
-                    rmdir(file)
+        rmtree(getcwd(), ignore_errors=True)
         resp = True
     except:
         resp = False
@@ -96,9 +90,8 @@ def eliminar_todo():
 if not verificar_version():
     if eliminar_todo():
         if descargar_ultima_version():
-            pass
-            # if descomprimir_zip():
-            #     if eliminar_archivos_basura():
-            #         print('Se ha actualizado correctamente!')
+            if descomprimir_zip():
+                if eliminar_archivos_basura():
+                    print('Se ha actualizado correctamente!')
 else:
     print('La aplicación está actualziada ^^')
